@@ -9,15 +9,15 @@ SRC = main.c glade_function.c
 OBJ = ${SRC:.c=.o}
 DEP = ${SRC:.c=.d}
 
-all: main
+all: main convert
 
 main: ${OBJ}
 
 .PHONY: clean
 
 clean:
-	${RM} ${OBJ}   # remove object files
-	${RM} ${DEP}   # remove dependency files
-	${RM} main     # remove main program
+	${RM} ${OBJ}           # remove object files
+	${RM} ${DEP}   	       # remove dependency files
+	${RM} main convert     # remove main program
 
 

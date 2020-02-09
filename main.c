@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     gtk_init(&argc, &argv);
     builder = gtk_builder_new();
     gtk_builder_add_from_file (builder, "GUITemp.glade", NULL);
-    window = GTK_WIDGET(gtk_builder_get_object(builder, "GtkWindow"));
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "Window"));
     gtk_builder_connect_signals(builder, NULL);
     
     g_Play = GTK_WIDGET(gtk_builder_get_object(builder, "Play"));
@@ -31,6 +31,11 @@ int main(int argc, char** argv)
     g_End = GTK_WIDGET(gtk_builder_get_object(builder, "End"));
     g_Restart = GTK_WIDGET(gtk_builder_get_object(builder, "Restart"));
     
+    g_object_unref(builder);
+
+    gtk_widget_show(window);                
+    gtk_main();
+
 	
 	//Initialisation de SDL et SDL_MIXER
 	
@@ -150,11 +155,6 @@ int main(int argc, char** argv)
     Mix_Quit();
     SDL_Quit();
     
-    g_object_unref(builder);
-
-    gtk_widget_show(window);                
-    gtk_main();
-
     return 0;
 }
 

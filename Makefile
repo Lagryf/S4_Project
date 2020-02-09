@@ -7,7 +7,7 @@ LDLIBS = -g -lSDL -lSDL_mixer -rdynamic -export-dynamic
 SRC = main.c glade_function.c
 OBJ = ${SRC:.c=.o}
 
-all: main
+all: glade_function
 
 main: ${OBJ}
 	$(CC) -o $(@F) $(LIBS) $(OBJ) $(LDLIBS) 

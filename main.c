@@ -3,11 +3,24 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 #include <err.h>
+#include <gtk/gtk.h>
 #include "glade_function.h"
 
+GtkWidget *g_Play;
+GtkWidget *g_Pause;
+GtkWidget *g_Stop;
+GtkWidget *g_Begin;
+GtkWidget *g_End;
+GtkWidget *g_Restart;
 
 int main(int argc, char** argv)
 {
+	GtkBuilder *builder; 
+    GtkWidget *window;
+    
+    gtk_init(&argc, &argv);
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "GUITemp.glade", NULL);
 	
 	//Initialisation de SDL et SDL_MIXER
 	
@@ -24,6 +37,16 @@ int main(int argc, char** argv)
 		printf("Mix_Init: %s\n", Mix_GetError());
 	}
 	
+	window = GTK_WIDGET(gtk_builder_get_object(builder, "window_main"));
+    gtk_builder_connect_signals(builder, NULL);
+    
+    g_Play = GTK_WIDGET(gtk_builder_get_object(builder, "Play"));
+    g_Pause = GTK_WIDGET(gtk_builder_get_object(builder, "Pause"));
+    g_Stop = GTK_WIDGET(gtk_builder_get_object(builder, "Stop"));
+    g_Begin = GTK_WIDGET(gtk_builder_get_object(builder, "Begin"));
+    g_End = GTK_WIDGET(gtk_builder_get_object(builder, "End"));
+    g_Restart = GTK_WIDGET(gtk_builder_get_object(builder, "Restart"));
+    
 	//Definition des variables importantes
 	
 	int volume = 128;
@@ -83,15 +106,15 @@ int main(int argc, char** argv)
 				{
 					//Pause
 					case SDLK_p:
-						pause_music();
+						on_Pause_clicked();
 						break;
 					//Resume
 					case SDLK_r:
-						play_music();
+						on_Play_clicked();
 						break;
 					//Revenir au debut
 					case SDLK_LEFT:
-						begin_music();
+						on_Begin_clicked();
 						break;
 					//Augmenter le volume
 					case SDLK_UP:
@@ -118,11 +141,24 @@ int main(int argc, char** argv)
     
     //Liberation de la memoire utilisee
     
+    g_object_unref(builder);
+
+    gtk_widget_show(window);                
+    gtk_main();
+    
     Mix_FreeChunk(music);
     Mix_CloseAudio();
     Mix_Quit();
     SDL_Quit();
 
     return 0;
+}
+
+
+
+// called when window is closed
+void on_window_main_destroy()
+{
+    gtk_main_quit();
 }
 

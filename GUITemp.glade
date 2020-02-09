@@ -197,16 +197,18 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="Pause">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_Pause_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkImage" id="image1">
+                  <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">media-playback-pause-symbolic</property>
                     <property name="use_fallback">True</property>
+                    <signal name="button-press-event" handler="on_Pause_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -217,15 +219,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="Play">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_Play_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">media-playback-start-symbolic</property>
+                    <signal name="button-press-event" handler="on_Play_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -236,15 +240,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="Stop">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_Stop_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">media-playback-stop-symbolic</property>
+                    <signal name="button-press-event" handler="on_Stop_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -255,15 +261,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="Begin">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_Begin_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">media-seek-forward-symbolic-rtl.symbolic</property>
+                    <signal name="button-press-event" handler="on_Begi_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -274,15 +282,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="End">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_End_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">media-seek-backward-symbolic-rtl</property>
+                    <signal name="button-press-event" handler="on_End_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -293,15 +303,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="Restart">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_Restart_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">view-refresh-symbolic</property>
+                    <signal name="button-press-event" handler="on_Restart_button_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -322,7 +334,6 @@
           <object class="GtkSpinner">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="active">True</property>
           </object>
           <packing>
             <property name="expand">False</property>

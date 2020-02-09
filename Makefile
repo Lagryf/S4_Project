@@ -1,23 +1,26 @@
-# Makefile
 
 CC = gcc
-CPPFLAGS =
-CFLAGS =
-LDFLAGS =
-LDLIBS = -lSDL -lSDL_mixer
+debug = -g
+OPT = -O0
+WARN = -Wall -Wextra -Werror
+PTHREAD = -pthread
+
+CCFLAGS = $(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
+
+GTKLIB = `pkp-config --cflags --libs gtk+-3.0`
+
+LD = gcc
+LDFLGAS = $(PTHREAD) $(GTKLIB) -export-dynamic
+
 SRC = main.c glade_function.c
-OBJ = ${SRC:.c=.o}
-DEP = ${SRC:.c=.d}
+OBJ = $(SRC:%.c=%.o)
 
-all: main
-
-main: ${OBJ}
-
-.PHONY: clean
-
+all: $(OBJS)
+	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
+	
+%.o: %.c
+	$(CC) $(CCFLAGS) -c $^ -o $(GTKLIB) -o main.o
+	
+.PHONY : clean	
 clean:
-	${RM} ${OBJ}   # remove object files
-	${RM} ${DEP}   # remove dependency files
-	${RM} main     # remove main program
-
-
+	rm -f *.o 

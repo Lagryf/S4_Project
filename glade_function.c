@@ -5,31 +5,36 @@
 #include <err.h>
 
 
-void play_music()
+void on_Play_clicked()
 {
-        Mix_Resume(1);
+    Mix_Resume(1);
 }
 
 
-void pause_music()
+void on_Pause_clicked()
 {
-        Mix_Pause(1);
+    Mix_Pause(1);
 }
 
 
-void stop_music()
+void on_Stop_clicked()
 {
     Mix_HaltChannel(1);
 }
 
 
-void begin_music()
+void on_Begin_clicked()
 {
 	Mix_RewindMusic();
 }
 
 
-void end_music()
+void on_End_clicked()
+{
+
+}
+
+void on_Restart_clicked()
 {
 
 }
@@ -37,27 +42,28 @@ void end_music()
 
 int lower_volume(int volume)
 {
-		if(volume < 0)
-		{
-			volume = 0;
-			return volume;
-		}
-			volume -= 20;
-			Mix_Volume(1,volume);
+	if(volume < 0)
+	{
+		volume = 0;
 		return volume;
+	}
+		volume -= 20;
+		Mix_Volume(1,volume);
+	return volume;
 }
 
 int higher_volume(int volume)
 {
-		if(volume > 128)
-		{
-			volume = 128;
-			return volume;
-		}
-		volume += 20;
-		Mix_Volume(1, volume);
+	if(volume > 128)
+	{
+		volume = 128;
 		return volume;
+	}
+	volume += 20;
+	Mix_Volume(1, volume);
+	return volume;
 }
+
 void Reverse_Stereo(int channel)
 {
 	if(!Mix_SetReverseStereo(1, 1)) 

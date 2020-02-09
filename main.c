@@ -21,6 +21,16 @@ int main(int argc, char** argv)
     gtk_init(&argc, &argv);
     builder = gtk_builder_new();
     gtk_builder_add_from_file (builder, "GUITemp.glade", NULL);
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "GtkWindow"));
+    gtk_builder_connect_signals(builder, NULL);
+    
+    g_Play = GTK_WIDGET(gtk_builder_get_object(builder, "Play"));
+    g_Pause = GTK_WIDGET(gtk_builder_get_object(builder, "Pause"));
+    g_Stop = GTK_WIDGET(gtk_builder_get_object(builder, "Stop"));
+    g_Begin = GTK_WIDGET(gtk_builder_get_object(builder, "Begin"));
+    g_End = GTK_WIDGET(gtk_builder_get_object(builder, "End"));
+    g_Restart = GTK_WIDGET(gtk_builder_get_object(builder, "Restart"));
+    
 	
 	//Initialisation de SDL et SDL_MIXER
 	
@@ -37,15 +47,6 @@ int main(int argc, char** argv)
 		printf("Mix_Init: %s\n", Mix_GetError());
 	}
 	
-	window = GTK_WIDGET(gtk_builder_get_object(builder, "window_main"));
-    gtk_builder_connect_signals(builder, NULL);
-    
-    g_Play = GTK_WIDGET(gtk_builder_get_object(builder, "Play"));
-    g_Pause = GTK_WIDGET(gtk_builder_get_object(builder, "Pause"));
-    g_Stop = GTK_WIDGET(gtk_builder_get_object(builder, "Stop"));
-    g_Begin = GTK_WIDGET(gtk_builder_get_object(builder, "Begin"));
-    g_End = GTK_WIDGET(gtk_builder_get_object(builder, "End"));
-    g_Restart = GTK_WIDGET(gtk_builder_get_object(builder, "Restart"));
     
 	//Definition des variables importantes
 	
@@ -139,17 +140,20 @@ int main(int argc, char** argv)
         }
     }
     
+    
     //Liberation de la memoire utilisee
     
-    g_object_unref(builder);
-
-    gtk_widget_show(window);                
-    gtk_main();
+    
     
     Mix_FreeChunk(music);
     Mix_CloseAudio();
     Mix_Quit();
     SDL_Quit();
+    
+    g_object_unref(builder);
+
+    gtk_widget_show(window);                
+    gtk_main();
 
     return 0;
 }

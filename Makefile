@@ -1,26 +1,25 @@
-
 CC = gcc
-debug = -g
-OPT = -O0
-WARN = -Wall -Wextra -Werror
-PTHREAD = -pthread
-
-CCFLAGS = $(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
-
-GTKLIB = `pkp-config --cflags --libs gtk+-3.0`
-
-LD = gcc
-LDFLGAS = $(PTHREAD) $(GTKLIB) -export-dynamic
+PKGCONFIG = $(shell which pkg-config)
+CFLAGS = -rdynamic $(shell $(PKGCONFIG) --cflags gtk+-3.0)
+LIBS = -rdynamic $(shell $(PKGCONFIG) --libs gtk+-3.0)
+LDLIBS = -g -lSDL -lSDL_mixer -rdynamic -export-dynamic
 
 SRC = main.c glade_function.c
-OBJ = $(SRC:%.c=%.o)
+OBJ = ${SRC:.c=.o}
 
-all: $(OBJS)
-	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
+all: main
+
+main: ${OBJ}
+	$(CC) -o $(@F) $(LIBS) $(OBJ) $(LDLIBS) 
+    
+glade_function: ${OBJ}
+	$(CC) -o $(@F) $(LIBS) $(OBJ) $(LDLIBS) 
 	
-%.o: %.c
-	$(CC) $(CCFLAGS) -c $^ -o $(GTKLIB) -o main.o
-	
-.PHONY : clean	
+.PHONY: clean
+
 clean:
-	rm -f *.o 
+	${RM} ${OBJ}   # remove object files
+	${RM} ${DEP}   # remove dependency files
+	${RM} main     # remove main program
+
+
